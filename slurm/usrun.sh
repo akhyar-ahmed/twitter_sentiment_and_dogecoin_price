@@ -1,5 +1,6 @@
 #!/bin/sh
 # ./usrun.sh -p RTXA6000 --gpus=1 --mem 80000 --cpus-per-gpu=1 --pty --time 08:00:00 /bin/bash
+# cd /netscratch/akahmed/twitter_sentiment_and_dogecoin_price
 # pip install -r requirements.txt
 
 # start the dialogpt enroot container on the cluster

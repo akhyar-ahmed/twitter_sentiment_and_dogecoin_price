@@ -14,7 +14,7 @@ def read_args():
     parser.add_argument("--dataset_path", default="data", type=str)
     parser.add_argument("--scraper", default="twint", type=str)
     parser.add_argument("--scraper_limit", default=10000, type=int)
-    parser.add_argument("--dataset", default="hwu", type=str)
+    parser.add_argument("--dataset", type=str)
     parser.add_argument("--log_folder", type=str, default="logs")
     parser.add_argument("--experiment_name", type=str, default="")
     parser.add_argument("--output_dir", type=str, default="datasets")
