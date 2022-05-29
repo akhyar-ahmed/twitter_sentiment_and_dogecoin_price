@@ -1,0 +1,25 @@
+2022-05-29 19:19:10,770 [INFO] {util.py:82} Twitter Sentiment with Dogecoin 
+2022-05-29 19:19:10,771 [INFO] {util.py:83} start command: /netscratch/akahmed/twitter_sentiment_and_dogecoin_price/data_analysis/scraper.py --scraper tweepy
+2022-05-29 19:19:10,772 [INFO] {util.py:84} experiment name ..tweepy_experiment
+2022-05-29 19:19:10,773 [INFO] {util.py:85} Namespace(asset_path='assets', dataset=None, dataset_path='data', device=0, experiment_name='', local_rank=-1, log_folder='logs', logging_steps=100, max_seq_length=50, num_epochs=100, num_modules=2, output_dir='datasets', scraper='tweepy', scraper_limit=10, seed=42, subsample=-1, test_batch_size=256, train_batch_size=256)
+2022-05-29 19:19:10,777 [INFO] {scraper.py:141} Twitter API connected successfully!
+2022-05-29 19:19:16,055 [ERROR] {scraper.py:163} 429 Too Many Requests
+Too Many Requests
+Traceback (most recent call last):
+  File "/netscratch/akahmed/twitter_sentiment_and_dogecoin_price/data_analysis/scraper.py", line 158, in main
+    create_tweepy_df(tweets, api, log_dir, query)
+  File "/netscratch/akahmed/twitter_sentiment_and_dogecoin_price/data_analysis/scraper.py", line 58, in create_tweepy_df
+    for tweet in tweepy_tweet_ls:
+  File "/opt/conda/lib/python3.8/site-packages/tweepy/pagination.py", line 48, in flatten
+    for response in PaginationIterator(self.method, *self.args,
+  File "/opt/conda/lib/python3.8/site-packages/tweepy/pagination.py", line 98, in __next__
+    response = self.method(*self.args, **self.kwargs)
+  File "/opt/conda/lib/python3.8/site-packages/tweepy/client.py", line 1145, in search_all_tweets
+    return self._make_request(
+  File "/opt/conda/lib/python3.8/site-packages/tweepy/client.py", line 126, in _make_request
+    response = self.request(method, route, params=request_params,
+  File "/opt/conda/lib/python3.8/site-packages/tweepy/client.py", line 114, in request
+    raise TooManyRequests(response)
+tweepy.errors.TooManyRequests: 429 Too Many Requests
+Too Many Requests
+2022-05-29 19:19:16,059 [INFO] {scraper.py:166} finished in 0.09 minutes

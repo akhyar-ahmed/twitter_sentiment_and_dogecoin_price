@@ -17,6 +17,7 @@ def read_args():
     parser.add_argument("--dataset", type=str)
     parser.add_argument("--log_folder", type=str, default="logs")
     parser.add_argument("--experiment_name", type=str, default="")
+    parser.add_argument("--asset_path", type=str, default="assets")
     parser.add_argument("--output_dir", type=str, default="datasets")
     parser.add_argument("--train_batch_size", type=int, default=256)
     parser.add_argument("--test_batch_size", type=int, default=256)
