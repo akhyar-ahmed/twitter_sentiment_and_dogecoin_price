@@ -62,6 +62,13 @@ def main():
 
             df = pd.DataFrame(t.__dict__ for t in tweets)
             df.to_csv(f"{log_dir}/twitterscraper_dogecoin.csv")
+        elif args.scraper == "tweepy":
+            logging.info(f"Twitter scrapping with tweepy is starting...")
+            log_dir = init_experiments(args, "..tweepy_experiment")
+            config = get_tweepy_config(args)
+
+            df = pd.DataFrame(t.__dict__ for t in tweets)
+            df.to_csv(f"{log_dir}/twitterscraper_dogecoin.csv")
 
         duration = (time.time()-starttime) / 60
         logging.info(f"finished in {duration:.2f} minutes")

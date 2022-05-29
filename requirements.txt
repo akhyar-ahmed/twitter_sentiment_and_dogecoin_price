@@ -1,3 +1,4 @@
 twint
 nest_asyncio
 twitterscraper
+tweeepy
