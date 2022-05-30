@@ -154,14 +154,13 @@ def main():
             # query = "#covid19 -filter:retweets"
             query = 'from:elonmusk -is:retweet lang:en'
             limit = 100000
-            start_time = '2019-01-01T00:00:00Z'
-            end_time = '2020-01-01T00:00:00Z
+            start_time = '2022-01-01T00:00:00Z'
+            end_time = '2022-05-29T00:00:00Z'
             try:
                 # tweets = fecth_all_tweepy_tweets(args, api, query)
                 # tweepy_tweet_ls = [i for i in tweets]
                 # tweets_df = create_tweepy_df(tweepy_tweet_ls, api)
                 # tweets_df.to_csv(f"{log_dir}/tweepy_tweets_{query}.csv")
-'
                 tweets = tw.Paginator(client.search_all_tweets, query=query,
                                             tweet_fields=['context_annotations', 'created_at', "text", "author_id", "source", "entities"], start_time=start_time, end_time=end_time, max_results=100, ).flatten(limit=limit)
                 
