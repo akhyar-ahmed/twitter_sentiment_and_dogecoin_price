@@ -1,6 +1,6 @@
 ''' 
 to run it:
-python -m data_analysis.scraper
+python -m data_analysis.scraper --scrape tweepy
 '''
 
 import logging
@@ -128,7 +128,7 @@ def config_twitter(args):
     twitter_api_config = get_tweepy_config(args)
     # print(json.dumps(api_config, indent = 4))
     try:
-        # Authenticate to Twitter
+        # Authenticate Twitter
         auth = tw.OAuthHandler(twitter_api_config["api_key"], twitter_api_config["api_key_secret"])
         auth.set_access_token(twitter_api_config["access_token"], twitter_api_config["access_token_secret"])
         client = tw.Client(twitter_api_config["bearer_token"])
@@ -151,11 +151,10 @@ def main():
             log_dir = init_experiments(args, "..tweepy_experiment")
             api, client = config_twitter(args)
             
-            # query = "#covid19 -filter:retweets"
-            query = 'from:elonmusk -is:retweet lang:en'
+            query = '#doge -is:retweet lang:en'
             limit = 100000
-            start_time = '2022-01-01T00:00:00Z'
-            end_time = '2022-05-29T00:00:00Z'
+            start_time = '2020-01-01T00:00:00Z'
+            end_time = '2021-01-01T00:00:00Z'
             try:
                 # tweets = fecth_all_tweepy_tweets(args, api, query)
                 # tweepy_tweet_ls = [i for i in tweets]
