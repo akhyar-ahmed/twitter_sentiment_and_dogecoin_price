@@ -64,6 +64,8 @@ def create_tweepy_df(tweepy_tweet_ls, api, log_dir = None, query = None):
         tweet_id_ls.append(str(tweet.id))
         data_src_ls.append(str(tweet.source))
         author_id_ls.append(str(tweet.author_id))
+        
+        # gets the author name
         # if author_id_ls[-1] == None:
         #     user_name = ""
         # else:
@@ -121,6 +123,25 @@ def create_tweepy_df(tweepy_tweet_ls, api, log_dir = None, query = None):
     return
 
 
+# authenticate twitter api 
+def config_twitter(args):
+    twitter_api_config = get_tweepy_config(args)
+    # print(json.dumps(api_config, indent = 4))
+    try:
+        # Authenticate to Twitter
+        auth = tw.OAuthHandler(twitter_api_config["api_key"], twitter_api_config["api_key_secret"])
+        auth.set_access_token(twitter_api_config["access_token"], twitter_api_config["access_token_secret"])
+        client = tw.Client(twitter_api_config["bearer_token"])
+        
+        # api = tw.API(auth, wait_on_rate_limit = True)
+        api = tw.API(auth)
+        logging.info(f"Twitter API connected successfully!")
+    except Exception as e:
+        logging.exception(e)
+    return api, client
+
+
+# the main method
 def main():
     try:
         starttime = time.time()
@@ -128,30 +149,19 @@ def main():
         if args.scraper == "tweepy":
             logging.info(f"Twitter scrapping with tweepy is starting...")
             log_dir = init_experiments(args, "..tweepy_experiment")
-            twitter_api_config = get_tweepy_config(args)
-            # print(json.dumps(api_config, indent = 4))
-            try:
-                # Authenticate to Twitter
-                auth = tw.OAuthHandler(twitter_api_config["api_key"], twitter_api_config["api_key_secret"])
-                auth.set_access_token(twitter_api_config["access_token"], twitter_api_config["access_token_secret"])
-                client = tw.Client(twitter_api_config["bearer_token"])
-                
-                # api = tw.API(auth, wait_on_rate_limit = True)
-                api = tw.API(auth)
-                logging.info(f"Twitter API connected successfully!")
-            except Exception as e:
-                logging.exception(e)
+            api, client = config_twitter(args)
             
             # query = "#covid19 -filter:retweets"
+            query = 'from:elonmusk -is:retweet lang:en'
+            limit = 100000
+            start_time = '2019-01-01T00:00:00Z'
+            end_time = '2020-01-01T00:00:00Z
             try:
                 # tweets = fecth_all_tweepy_tweets(args, api, query)
                 # tweepy_tweet_ls = [i for i in tweets]
                 # tweets_df = create_tweepy_df(tweepy_tweet_ls, api)
                 # tweets_df.to_csv(f"{log_dir}/tweepy_tweets_{query}.csv")
-                query = 'from:elonmusk -is:retweet lang:en'
-                limit = 100000
-                start_time = '2021-01-01T00:00:00Z'
-                end_time = '2022-01-01T00:00:00Z'
+'
                 tweets = tw.Paginator(client.search_all_tweets, query=query,
                                             tweet_fields=['context_annotations', 'created_at', "text", "author_id", "source", "entities"], start_time=start_time, end_time=end_time, max_results=100, ).flatten(limit=limit)
                 
@@ -171,6 +181,7 @@ def main():
         logging.exception(e)
 
 
+# call the main method
 if __name__ == '__main__':
     main()
 
