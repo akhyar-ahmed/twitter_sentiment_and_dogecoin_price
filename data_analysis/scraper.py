@@ -53,7 +53,7 @@ def create_tweepy_df(tweepy_tweet_ls, api, log_dir = None, query = None):
     data_src_ls = []
     author_id_ls = []
     author_name_ls = []
-    coun = 0
+    coun = 1
     split = 0
     for tweet in tweepy_tweet_ls:
         text_ls.append(tweet.text)
@@ -72,8 +72,10 @@ def create_tweepy_df(tweepy_tweet_ls, api, log_dir = None, query = None):
         user_name = "Nobody"
         author_name_ls.append(user_name)
         print(split, coun)
-        if coun == 850:
-            coun = 0
+        if coun%100 == 0:
+            time.sleep(40)
+        if coun == 500:
+            coun = 1
             tweets_dict = {
                 "tweet_id": tweet_id_ls,
                 "user_id": author_id_ls,
@@ -85,7 +87,6 @@ def create_tweepy_df(tweepy_tweet_ls, api, log_dir = None, query = None):
                 "time": created_at,
                 "source": data_src_ls
             }
-            
             text_ls = []
             created_at = []
             month_ls = []
@@ -99,7 +100,6 @@ def create_tweepy_df(tweepy_tweet_ls, api, log_dir = None, query = None):
             tweets_df = tweets_df.reset_index(drop=True)
             tweets_df.to_csv(f"{log_dir}/tweepy_tweets_{query.split()[0]}_{split}.csv")
             split += 1
-            time.sleep(900)
         else:
             coun += 1
     tweets_dict = {
@@ -142,16 +142,18 @@ def main():
             except Exception as e:
                 logging.exception(e)
             
-            query = "#covid19 -filter:retweets"
+            # query = "#covid19 -filter:retweets"
             try:
                 # tweets = fecth_all_tweepy_tweets(args, api, query)
                 # tweepy_tweet_ls = [i for i in tweets]
                 # tweets_df = create_tweepy_df(tweepy_tweet_ls, api)
                 # tweets_df.to_csv(f"{log_dir}/tweepy_tweets_{query}.csv")
-                query = '#doge -is:retweet lang:en'
-                limit = 5000000
+                query = 'from:elonmusk -is:retweet lang:en'
+                limit = 100000
+                start_time = '2021-01-01T00:00:00Z'
+                end_time = '2022-01-01T00:00:00Z'
                 tweets = tw.Paginator(client.search_all_tweets, query=query,
-                                            tweet_fields=['context_annotations', 'created_at', "text", "author_id", "source", "entities"], max_results=100).flatten(limit=limit)
+                                            tweet_fields=['context_annotations', 'created_at', "text", "author_id", "source", "entities"], start_time=start_time, end_time=end_time, max_results=100, ).flatten(limit=limit)
                 
                 # tweet_df = create_tweepy_df(tweets, api)
                 # tweet_df.to_csv(f"{log_dir}/tweepy_tweets_{query.split()[0]}.csv")

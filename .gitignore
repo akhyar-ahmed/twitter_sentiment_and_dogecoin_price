@@ -1,3 +1,5 @@
 __pycache__
 logs
 data_analysis/test.py
+*.txt
+data_analysis/__pycache__/scraper.cpython-38.pyc
