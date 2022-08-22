@@ -59,18 +59,11 @@ def create_logger(log_dir):
     rootLogger.setLevel(logging.INFO)
 
 
-# set all random seeds
-def set_seed(seed):
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-
 
 def init_experiments(args, experiment_name):
     log_dir=make_log_folder(args, experiment_name)
     logging.info(log_dir)
     create_logger(log_dir)
-    # set_seed(args.seed)
 
     command=" ".join(sys.argv)
     logging.info('''Twitter Sentiment with Dogecoin ''')
