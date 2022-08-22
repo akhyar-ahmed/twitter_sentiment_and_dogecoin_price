@@ -19,16 +19,10 @@ def read_args():
     parser.add_argument("--experiment_name", type=str, default="")
     parser.add_argument("--asset_path", type=str, default="assets")
     parser.add_argument("--output_dir", type=str, default="datasets")
-    parser.add_argument("--train_batch_size", type=int, default=256)
-    parser.add_argument("--test_batch_size", type=int, default=256)
-    parser.add_argument("--max_seq_length", type=int, default=50)
-    parser.add_argument("--num_modules", type=int, default=2)
-    parser.add_argument("--num_epochs", type=int, default=100)
     parser.add_argument("--logging_steps", type=int, default=100)
     parser.add_argument("--subsample", type=int, default=-1)
     parser.add_argument("--device", default=0, type=int, help="GPU device #")
     parser.add_argument("--local_rank", default=-1, type=int)
-    parser.add_argument("--seed", type=int, default=42)
     return parser.parse_args()
 
 
